@@ -1,4 +1,4 @@
-import "./App.css";
+import "./components/App.css";
 import React, { useRef, useState } from "react";
 import DogScene from "./dog";
 import AboutCard from "./AboutCard";
