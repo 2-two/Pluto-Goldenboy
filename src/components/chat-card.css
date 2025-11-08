@@ -1,0 +1,139 @@
+:root {
+  /* Space reserved for the right navigation rail */
+  --nav-rail-w: 104px;   /* adjust to your rail width */
+  --nav-rail-gap: 20px;  /* gap between rail and card */
+
+  --chat-border: #00eaff; /* cyan glow */
+  --chat-cta-wp: #25d366;
+  --chat-cta-insta: #e1306c;   
+  --chat-align: left;
+}
+
+/* Container mirrors About card, but leaves room for the rail */
+.chat-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  /* Subtract rail space from available viewport width */
+  width: min(560px, calc(92vw - var(--nav-rail-w) - var(--nav-rail-gap)));
+  height: 65vh;
+  min-height: 520px;
+  max-height: 860px;
+
+  padding: clamp(20px, 2.4vw, 28px);
+  border-radius: 28px;
+
+  border: none;
+  background: rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+  box-shadow:
+    0 0 12px color-mix(in oklab, var(--chat-border), transparent 60%),
+    inset 0 0 1px color-mix(in oklab, var(--chat-border), transparent 50%);
+  backdrop-filter: saturate(120%) blur(2px);
+  text-align: var(--chat-align);
+  pointer-events: auto;
+}
+
+/* Heading */
+.chat-card__header { margin: 0; }
+.chat-card__title {
+  margin: 0;
+  font-size: clamp(20px, 2.2vw, 32px);
+  letter-spacing: 0.06em;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* Body grows; CTA stays at bottom */
+.chat-card__body {
+  display: grid;
+  gap: clamp(10px, 1.2vw, 14px);
+  flex: 1 1 auto;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.chat-card__text {
+  margin: 0;
+  line-height: 1.6;
+  font-size: clamp(14px, 1.2vw, 18px);
+  color: #e6e6e6;
+}
+
+/* 🎯 NEW: Container for CTA buttons */
+.chat-card__cta-container {
+  display: flex; /* Arrange buttons side-by-side */
+  gap: 16px; /* Space between buttons */
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+/* Original CTA styles applied to both buttons */
+.chat-card__cta {
+  width: max-content;
+  
+  padding: 12px 20px;
+  border-radius: 14px;
+  /* Remove width: max-content; margin-top: auto; align-self: flex-start; 
+     from the original block, as they are now handled by the container */
+
+  /* Base CTA styling */
+  border: 3px solid transparent; /* Will be set per-button */
+  background: transparent; /* Will be set per-button */
+  color: #ffffff;
+
+  font-weight: 800;
+  font-size: clamp(14px, 1.1vw, 18px);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+
+/* 🎯 WhatsApp Styling (Primary Button) */
+.chat-card__cta--whatsapp {
+  border-color: var(--chat-cta-wp);
+  background: color-mix(in oklab, var(--chat-cta-wp), transparent 85%);
+  box-shadow: 0 0 8px color-mix(in oklab, var(--chat-cta-wp), transparent 55%);
+}
+.chat-card__cta--whatsapp:hover {
+  background: color-mix(in oklab, var(--chat-cta-wp), transparent 78%);
+  box-shadow:
+    0 0 10px color-mix(in oklab, var(--chat-cta-wp), transparent 40%),
+    inset 0 0 1px color-mix(in oklab, var(--chat-cta-wp), transparent 65%);
+}
+
+/* 🎯 Instagram Styling (Secondary Button) */
+.chat-card__cta--instagram {
+  border-color: var(--chat-cta-insta);
+  background: color-mix(in oklab, var(--chat-cta-insta), transparent 85%);
+  box-shadow: 0 0 8px color-mix(in oklab, var(--chat-cta-insta), transparent 55%);
+}
+.chat-card__cta--instagram:hover {
+  background: color-mix(in oklab, var(--chat-cta-insta), transparent 78%);
+  box-shadow:
+    0 0 10px color-mix(in oklab, var(--chat-cta-insta), transparent 40%),
+    inset 0 0 1px color-mix(in oklab, var(--chat-cta-insta), transparent 65%);
+}
+
+/* Active State remains the same */
+.chat-card__cta:active { transform: scale(0.985); }
+
+/* Responsive: rail may collapse on smaller screens */
+@media (max-width: 1024px) {
+  .chat-card {
+    width: min(620px, calc(94vw - var(--nav-rail-w) - var(--nav-rail-gap)));
+    height: 62vh;
+  }
+}
+@media (max-width: 768px) {
+  :root {
+    --nav-rail-w: 0px;    /* collapse rail space when the rail stacks/hides */
+    --nav-rail-gap: 0px;
+  }
+  .chat-card {
+    width: min(680px, 94vw);
+    height: 58vh;
+    min-height: 460px;
+  }
+}

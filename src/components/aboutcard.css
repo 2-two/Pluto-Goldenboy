@@ -1,0 +1,107 @@
+:root {
+  --about-border: #ff00ff;
+  --about-cta: #ff2b2b;
+  --about-align: left;
+
+  /* New: mirror the right-side rail spacing on the left for symmetry */
+  --left-gutter-w: 104px;   /* left margin from viewport edge */
+  --left-gutter-gap: 0px;  /* optional if you add a left rail later */
+}
+
+/* Card container */
+.about-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  /* Responsive sizing: mirror Chat card by reserving a left gutter */
+  width: min(560px, calc(92vw - var(--left-gutter-w) - var(--left-gutter-gap)));
+  height: min(730px, 65vh);                 /* 65% of viewport height */
+  min-height: 520px;                        /* guard for short screens */
+  max-height: 860px;                        /* guard for super tall screens */
+
+  padding: clamp(20px, 2.4vw, 28px);
+  border-radius: 28px;
+
+  border: none;                  /* no solid border per request */
+  background: rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+  box-shadow:
+    0 0 12px color-mix(in oklab, var(--about-border), transparent 60%),
+    inset 0 0 1px color-mix(in oklab, var(--about-border), transparent 50%);
+  backdrop-filter: saturate(120%) blur(2px);
+  text-align: var(--about-align);
+  pointer-events: auto;
+}
+
+/* Header */
+.about-card__header { margin: 0; }
+
+.about-card__title {
+  margin: 0;
+  font-size: clamp(20px, 2.2vw, 32px);
+  letter-spacing: 0.06em;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* Body grows, CTA sits at bottom */
+.about-card__body {
+  display: grid;
+  gap: clamp(10px, 1.2vw, 14px);
+  flex: 1 1 auto;               /* fill available space */
+  overflow: auto;               /* allow scroll if content exceeds */
+  overscroll-behavior: contain;
+}
+
+.about-card__text {
+  margin: 0;
+  line-height: 1.6;
+  font-size: clamp(14px, 1.2vw, 18px);
+  color: #e6e6e6;
+}
+
+/* CTA */
+.about-card__cta {
+  align-self: flex-start;
+  width: max-content;           /* compact width */
+  margin-top: auto;             /* pin to bottom */
+
+  padding: 12px 20px;
+  border-radius: 14px;
+  border: 3px solid var(--about-cta);
+  background: color-mix(in oklab, var(--about-cta), transparent 45%); /* semi‑transparent red */
+  color: #ffffff;
+
+  font-weight: 800;
+  font-size: clamp(14px, 1.1vw, 18px);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+  box-shadow: 0 0 8px color-mix(in oklab, var(--about-cta), transparent 55%);
+}
+
+.about-card__cta:hover {
+  background: color-mix(in oklab, var(--about-cta), transparent 78%);
+  box-shadow:
+    0 0 10px color-mix(in oklab, var(--about-cta), transparent 40%),
+    inset 0 0 1px color-mix(in oklab, var(--about-cta), transparent 65%);
+}
+.about-card__cta:active { transform: scale(0.985); }
+
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+  .about-card {
+    width: min(620px, calc(94vw - var(--left-gutter-w) - var(--left-gutter-gap)));
+    height: 62vh;               /* slightly shorter on mid screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .about-card {
+    width: min(680px, calc(94vw - var(--left-gutter-w) - var(--left-gutter-gap)));
+    height: 58vh;               /* adapt for small screens */
+    min-height: 460px;          /* smaller guard */
+  }
+}

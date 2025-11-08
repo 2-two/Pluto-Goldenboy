@@ -1,0 +1,122 @@
+/* Full-screen dark overlay */
+.image-modal__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9); /* Dark, slightly transparent background */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  z-index: 1000; /* Ensure it is on top of all other content */
+}
+
+/* Modal content container (holds the image and nav buttons) */
+.image-modal__content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  display: flex; /* Use flex to easily center content and position buttons */
+  align-items: center;
+  justify-content: center;
+}
+
+/* The actual enlarged image */
+.image-modal__img {
+  display: block;
+  max-width: 100%;
+  max-height: 100vh; /* Adjust as needed, ensuring it fits the viewport */
+  object-fit: contain; /* Ensures the image fits without cropping */
+  border-radius: 8px;
+}
+
+/* Close button (top right) */
+.image-modal__close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.2s;
+  z-index: 1001; /* Above image */
+}
+
+.image-modal__close-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Navigation buttons (left/right of image) */
+.image-modal__nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  background: rgba(255, 255, 255, 0.15); /* Slightly less opaque than close button */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  
+  width: 50px; /* Slightly larger for easier click */
+  height: 50px;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.2s, transform 0.2s;
+  z-index: 1001; /* Above image */
+  padding-bottom: 4px; /* Optical adjustment for chevrons */
+}
+
+.image-modal__nav-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-50%) scale(1.05); /* Slight scale on hover */
+}
+
+.image-modal__nav-btn--prev {
+  left: -60px; /* Position outside the content box */
+}
+
+.image-modal__nav-btn--next {
+  right: -60px; /* Position outside the content box */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .image-modal__nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+  .image-modal__nav-btn--prev {
+    left: 10px; /* Position inside on smaller screens */
+  }
+  .image-modal__nav-btn--next {
+    right: 10px; /* Position inside on smaller screens */
+  }
+  /* Push close button further from edge to avoid collision with nav buttons */
+  .image-modal__close-btn {
+    top: 50px; 
+    right: 10px;
+  }
+}
